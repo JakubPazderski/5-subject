@@ -10,12 +10,8 @@ class Card:
         self.email=fake.email()
 
 card_list=[]
-card_list.append(Card(fake.first_name(),fake.last_name(),fake.company(),fake.job(),fake.email()))
-card_list.append(Card(fake.first_name(),fake.last_name(),fake.company(),fake.job(),fake.email()))
-card_list.append(Card(fake.first_name(),fake.last_name(),fake.company(),fake.job(),fake.email()))
-card_list.append(Card(fake.first_name(),fake.last_name(),fake.company(),fake.job(),fake.email()))
-card_list.append(Card(fake.first_name(),fake.last_name(),fake.company(),fake.job(),fake.email()))
-
+for _ in range(5):
+    card_list.append(Card(fake.first_name(),fake.last_name(),fake.company(),fake.job(),fake.email()))
 for obj in card_list:
     print(obj.first_name,obj.last_name,",",obj.company,",",obj.job,",",obj.email)
 
