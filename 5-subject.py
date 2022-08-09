@@ -1,4 +1,3 @@
-from re import L
 from faker import Faker
 fake=Faker(["pl-PL"])
 Faker.seed(0)
@@ -12,9 +11,11 @@ class BaseContact(Card):
         self.last_name=last_name
         self.msisdn=msisdn
     def contact(self):
-        return f"Wybieram numer {self.msisdn()[4:]} i dzwonię do {self.first_name} {self.last_name}."
+        return f"Wybieram numer {self.msisdn} i dzwonię do {self.first_name} {self.last_name}."
     def __repr__(self):
-        return f"{self.first_name} {self.last_name}, {self.msisdn()[4:]}"
+        return f"{self.first_name} {self.last_name}, {self.msisdn}"
+    def namelenght(self):
+        return f"Imię ma: {len(self.first_name)} znaków. Nazwisko ma {len(self.last_name)} znaków."
 class BusinessContact(BaseContact):
     def __init__(self, first_name, last_name, prv_number, phone_number, company, job, email):
         self.first_name=first_name
@@ -28,7 +29,8 @@ class BusinessContact(BaseContact):
         return f"{self.first_name} {self.last_name}, {self.phone_number}, {self.company}, {self.job}, {self.email}"
     def contact(self):
         print(f"Wybieram numer {self.phone_number} i dzwonię do {self.first_name} {self.last_name}.")
-
+    def namelenght(self):
+        return f"Imię ma: {len(self.first_name)} znaków. Nazwisko ma {len(self.last_name)} znaków."
 cardlist=[]        
 
 def createcontacts():
@@ -39,24 +41,19 @@ def createcontacts():
         for _ in range(y):
             cardlist.append(BaseContact(fake.first_name(),fake.last_name(),fake.msisdn()[4:]))
         for obj in cardlist:
-            print(obj.first_name,obj.last_name,obj.msisdn)
+            print(obj.first_name, obj.last_name, obj.msisdn)
+            print(obj.namelenght())
+            print(obj.contact())
     elif x=="B":
         for _ in range(y):
             cardlist.append(BusinessContact(fake.first_name(),fake.last_name(),fake.msisdn()[4:], fake.phone_number(), fake.company(), fake.job(), fake.email()))
         for obj in cardlist:
-            print(obj.first_name, obj.last_name, obj.phone_number, obj.company, obj.job, obj.email)
+            print(obj.first_name, obj.last_name, obj.phone_number, obj.company, obj.job, obj.email) 
+            print(obj.namelenght())
+            print(obj.contact())
 
 createcontacts()
 
-def again():
-    c=input("Czy chcesz jeszcze raz stworzyć wizytówki?[T/N]:")
-    if c=="T":
-        cardlist.clear()
-        createcontacts()
-    else:
-        print("Dzięki za dobrą zabawę!")
-
-again()
 
     
 
